@@ -55,7 +55,6 @@ services:
       - '1883:1883'
       - '8883:8883'
       - '8000:8000'
-      - '8001:8001'
     restart: always
 volumes:
   grafana-storage:
