@@ -14,7 +14,7 @@ services:
     container_name: node-red
     ports:
       - "1880:1880"
-    user: "root" a
+    user: "root"
     volumes:
       - "node-red-data:/data"
   influxdb:
