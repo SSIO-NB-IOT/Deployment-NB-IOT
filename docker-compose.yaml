@@ -1,63 +1,44 @@
-version: '2'
-services:
-  nodered:
-    depends_on:
-        - grafana
-    image: nodered/node-red:latest
-    environment:
-        - TZ=Europe/Paris
+version: "3"
+services: 
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
     ports:
-        - "1880:1880"
+      - "1883:1883"
+      - "9001:9001"
     volumes:
-        - nodered-storage:/data
-    restart: always  
+      - "mosquitto-data:/mosquitto"
+      - "./mosquitto.conf:/mosquitto/config/mosquitto.conf" 
+  node-red:
+    image: nodered/node-red
+    container_name: node-red
+    ports:
+      - "1880:1880"
+    user: "root" a
+    volumes:
+      - "node-red-data:/data"
   influxdb:
-    image: influxdb:latest
+    image: influxdb
+    container_name: influxdb
     ports:
-      - '8086:8086'
+      - "8086:8086"        
+    env_file:
+      - 'influxdb.env'
     volumes:
-      - ./influxdb-storage:/var/lib/influxdb
-    environment:
-      - INFLUXDB_DB=db0
-      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
-      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
-    restart: always 
-  chronograf:
-    image: chronograf:latest
-    ports:
-      - '127.0.0.1:8888:8888'
-    volumes:
-      - ./chronograf-storage:/var/lib/chronograf
-    depends_on:
-      - influxdb
-    environment:
-      - INFLUXDB_URL=http://influxdb:8086
-      - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
-      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
-    restart: always 
+      - "influxdb-data:/var/lib/influxdb"
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana
+    container_name: grafana
     ports:
-      - '3000:3000'
-    user: "grafana"
+      - "3000:3000"
+    env_file:
+      - 'grafana.env'
+    user: "0"
     volumes:
-      - grafana-storage:/var/lib/grafana
-      - grafana-provisioning:/etc/grafana/provisioning
-    depends_on:
-      - influxdb
-    environment:
-      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
-    restart: always
-  hivemq:
-    image: hivemq/hivemq4
-    ports:
-      - '1883:1883'
-      - '8883:8883'
-      - '8000:8000'
-    restart: always
-volumes:
-  grafana-storage:
-  grafana-provisioning:
-  nodered-storage:
+      - "grafana-data:/var/lib/grafana"
 
+volumes:
+  influxdb-data:
+  grafana-data:        
+  node-red-data:
+  mosquitto-data:
