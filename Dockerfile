@@ -1,5 +1,7 @@
 FROM grafana/grafana:latest
 
+# light mode
+
 ENV GF_USERS_DEFAULT_THEME=light
 
 ENV GF_AUTH_ANONYMOUS_ENABLED=true
