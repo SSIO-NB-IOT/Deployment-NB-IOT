@@ -24,5 +24,4 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: benayyad12/grafana-nb-iot:latest
-        build-args: |
-          INFLUXDB_TOKEN=${{ secrets.INFLUXDB_TOKEN }}
+        
