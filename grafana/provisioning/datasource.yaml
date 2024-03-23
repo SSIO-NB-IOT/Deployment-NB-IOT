@@ -11,7 +11,7 @@ datasources:
         defaultBucket: bucket
         tlsSkipVerify: true
      secureJsonData:
-         token: '6Pr1SgjF6gsoaYzoTRmey6A3_MsXmGptkS6N-Lj5jflqNo994DFFCXtxA5IMkvLPIynwmG1iN2FjIxIP1nQaXg=='
+         token: '${INFLUXDB_TOKEN}'
 
 
 
