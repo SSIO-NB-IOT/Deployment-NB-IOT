@@ -15,9 +15,6 @@ services:
     container_name: node-red
     ports:
       - "1880:1880"
-    devices:
-      - /dev/tty.usbmodem14101:/dev/tty.usbmodem14101
-    user: "root"
     volumes:
       - "node-red-data:/data"
   influxdb:
@@ -25,8 +22,6 @@ services:
     container_name: influxdb
     ports:
       - "8086:8086"        
-    env_file:
-      - 'influxdb.env'
     volumes:
       - "influxdb-data:/var/lib/influxdb"
   grafana:
@@ -34,9 +29,6 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
-    env_file:
-      - 'grafana.env'
-    user: "0"
     volumes:
       - "grafana-data:/var/lib/grafana"
 volumes:
