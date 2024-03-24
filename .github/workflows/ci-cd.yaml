@@ -23,4 +23,5 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: benayyad12/grafana-nb-iot:latest  
+        tags: benayyad12/grafana-nb-iot:latest
+        
