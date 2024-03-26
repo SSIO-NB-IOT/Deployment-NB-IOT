@@ -201,7 +201,7 @@
           "refId": "A"
         }
       ],
-      "title": "PDR (Packet Delivery Ratio)",
+      "title": "Power Save Mode",
       "type": "timeseries"
     }
   ],
