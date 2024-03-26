@@ -10,21 +10,21 @@ services:
     volumes:
       - "mosquitto-data:/mosquitto"
   node-red:
-    image: node-red-custom
+    image: node-red-custom:latest
     container_name: node-red
     ports:
       - "1880:1880"
     volumes:
       - "node-red-data:/data"
   influxdb:
-    image: influxdb
+    image: influxdb-custom
     container_name: influxdb
     ports:
       - "8086:8086"        
     volumes:
       - "influxdb-data:/var/lib/influxdb"
   grafana:
-    image: benayyad12/grafana-nb-iot:latest
+    image: benayyad12/grafana-nb-iot
     container_name: grafana
     ports:
       - "3000:3000"
