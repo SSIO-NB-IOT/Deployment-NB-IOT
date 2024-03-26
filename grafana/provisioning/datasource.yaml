@@ -7,8 +7,8 @@ datasources:
      url: http://influxdb:8086
      jsonData:
         version: Flux
-        organization: organization
-        defaultBucket: bucket
+        organization: nb_iot
+        defaultBucket: pdr
         tlsSkipVerify: true
      secureJsonData:
          token: ''
