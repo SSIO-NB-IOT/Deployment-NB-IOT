@@ -31,9 +31,44 @@ git clone https://github.com/SSIO-NB-IOT/Deployment-NB-IOT.git
 Pour construire l'image personnalisée de Node-RED, naviguez dans le dossier approprié et utilisez le `Dockerfile` fourni :
 
 ```bash
-cd node-red-custom
-# Utilisez la commande de construction Docker appropriée ici, par exemple:
-docker build -t mon-image-node-red .
+FROM nodered/node-red:latest
+
+COPY flows.json /data/flows.json
+
+ENV FLOWS=flows.json
+
+RUN npm install node-red-contrib-influxdb node-red-dashboard
+```
+Pour construire l'image node-red:
+
+```bash
+docker build -t node-red-custom . 
 ```
 
-Remplacez `mon-image-node-red` par le nom que vous souhaitez donner à votre image Docker de Node-RED. Répétez des étapes similaires pour les images InfluxDB et Grafana en naviguant dans leurs dossiers respectifs et en utilisant leurs `Dockerfile` pour construire les images.
+
+## Vérification de l'Image Docker
+
+Pour confirmer que l'image Docker `node-red-custom` existe sur votre machine, vous pouvez utiliser la commande suivante dans un terminal :
+
+```bash
+docker images
+```
+
+Cette commande liste toutes les images Docker installées, y compris `node-red-custom` si elle a été correctement construite et est présente.
+
+## Contenu de l'Image Docker Customisée de Node-RED
+
+L'image Docker personnalisée de Node-RED inclut les éléments suivants préconfigurés :
+
+- **`flows.json`** : Le fichier de configuration principal utilisé par Node-RED.
+- **Packages supplémentaires** : Deux packages Node-RED sont préinstallés :
+  - `node-red-contrib-influxdb` : Un package pour l'intégration avec InfluxDB.
+  - `node-red-dashboard` : Un package pour créer des tableaux de bord UI dans Node-RED.
+
+## Test de l'Image Docker Customisée
+
+En lançant un conteneur basé sur l'image `node-red-custom`, vous devriez obtenir un environnement Node-RED avec :
+- Un flow existant prédéfini, comme décrit par le fichier `flows.json`.
+- Les packages `node-red-contrib-influxdb` et `node-red-dashboard` déjà installés et prêts à l'emploi.
+
+![Flow node-red](images/node-red.png)
