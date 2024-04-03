@@ -93,7 +93,7 @@ ENV DOCKER_INFLUXDB_INIT_RETENTION=1w
 ENV DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=token
 ```
 On met: username : admin et password : admin1234
-![influxdb](images/influxdb.png)
+![influxdb](images/influxdb.png){width=50%}
 On remarque que notre bucket est crée.
 
 notre bucket par défaut: measures où on va injecter nos données
